@@ -1,0 +1,7 @@
+{
+	"ImportPath": "github.com/arvindram03/meeteasy-gcm-server",
+	"GoVersion": "go1.3.3",
+	"Deps": [
+
+	]
+}
