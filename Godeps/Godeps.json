@@ -2,6 +2,13 @@
 	"ImportPath": "github.com/arvindram03/meeteasy-gcm-server",
 	"GoVersion": "go1.3.3",
 	"Deps": [
-
+        {
+            "ImportPath": "github.com/jinzhu/gorm",
+            "Rev": "f43456fecf4b53e36544a9a2200fb473e42c3f67"
+        },
+        {
+            "ImportPath": "github.com/goutils/structmapper",
+            "Rev": "1d2c58ccdd59143a34515623b1b1a9cc0570e35f"
+        }
 	]
 }
