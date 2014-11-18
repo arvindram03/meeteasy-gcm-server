@@ -4,6 +4,7 @@ import (
 	"io"
 	"net/http"
 	"log"
+	"os"
 )
 
 func HelloServer(w http.ResponseWriter, req *http.Request) {
@@ -12,7 +13,7 @@ func HelloServer(w http.ResponseWriter, req *http.Request) {
 
 func main() {
 	http.HandleFunc("/hello", HelloServer)
-	err := http.ListenAndServe(":6055", nil)
+	err := http.ListenAndServe(":"+os.Getenv("PORT"), nil)
 	if err != nil {
 		log.Fatal("ListenAndServe: ", err)
 	}
