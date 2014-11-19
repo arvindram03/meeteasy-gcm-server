@@ -1,7 +1,7 @@
 package models
 
 type User struct {
-	Id             int64
+	Id             string `sql:"type:uuid"`
 	RegistrationID string `sql:"unique"`
 	MobileNumber   string `sql:"unique"`
 }

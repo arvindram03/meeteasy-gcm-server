@@ -6,6 +6,7 @@ import (
 	"log"
 	"os"
 	"github.com/arvindram03/meeteasy-gcm-server/controllers"
+	"github.com/bmizerany/pat"
 )
 
 func HelloServer(w http.ResponseWriter, req *http.Request) {
@@ -13,9 +14,16 @@ func HelloServer(w http.ResponseWriter, req *http.Request) {
 }
 
 func main() {
-	http.HandleFunc("/", HelloServer)
-	http.HandleFunc("/user",controllers.RegisterUser)
-	http.HandleFunc("/meetup",controllers.CreateMeetup)
+	m := pat.New()
+	m.Get("/", http.HandlerFunc(HelloServer))
+
+	m.Post("/user", http.HandlerFunc(controllers.RegisterUser))
+
+	m.Post("/meetup", http.HandlerFunc(controllers.CreateMeetup))
+	m.Put("/meetup/:meetupId", http.HandlerFunc(controllers.UpdateMeetup))
+
+
+	http.Handle("/", m)
 	log.Println("Starting MeetEasy GCM Server...")
 	err := http.ListenAndServe(":"+os.Getenv("PORT"), nil)
 	if err != nil {

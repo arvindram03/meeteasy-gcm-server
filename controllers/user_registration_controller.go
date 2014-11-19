@@ -9,6 +9,7 @@ import (
 	"github.com/goutils/structmapper"
 	"github.com/arvindram03/meeteasy-gcm-server/models"
 	"log"
+	"code.google.com/p/go-uuid/uuid"
 )
 
 func RegisterUser(writer http.ResponseWriter, req *http.Request) {
@@ -29,7 +30,7 @@ func RegisterUser(writer http.ResponseWriter, req *http.Request) {
 
 	user := &models.User{}
 	structmapper.AutoMap(*userDTO, user)
-
+	user.Id = uuid.New()
 	err = user.Insert()
 	if err != nil {
 		httpResponse.InternalServerError(writer)

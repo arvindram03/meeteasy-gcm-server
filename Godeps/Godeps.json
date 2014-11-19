@@ -8,6 +8,10 @@
 			"Rev": "7dda39b2e7d5e265014674c5af696ba4186679e9"
 		},
 		{
+			"ImportPath": "github.com/bmizerany/pat",
+			"Rev": "b8a35001b773c267eb260a691f4e5499a3531600"
+		},
+		{
 			"ImportPath": "github.com/goutils/structmapper",
 			"Rev": "1d2c58ccdd59143a34515623b1b1a9cc0570e35f"
 		},

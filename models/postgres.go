@@ -19,8 +19,8 @@ func InitDB() {
 	dbConn := db.DB()
 	dbConn.SetMaxIdleConns(2)
 	dbConn.SetMaxOpenConns(10)
-
-	db.AutoMigrate(&User{})
+	db.LogMode(true)
+	db.AutoMigrate(&User{}, &Meetup{}, &Location{})
 }
 
 func GetDBConn() *gorm.DB {

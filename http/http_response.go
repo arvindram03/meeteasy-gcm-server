@@ -13,3 +13,7 @@ func InternalServerError(writer http.ResponseWriter) {
 func Created(writer http.ResponseWriter) {
 	writer.WriteHeader(http.StatusCreated)
 }
+
+func StatusOK(writer http.ResponseWriter) {
+	writer.WriteHeader(http.StatusOK)
+}
