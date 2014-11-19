@@ -2,25 +2,27 @@ package controllers
 
 import (
 	"net/http"
-	httpResponse "http"
+	httpResponse "github.com/arvindram03/meeteasy-gcm-server/http"
 	"io/ioutil"
 	"encoding/json"
-	"dtos"
+	"github.com/arvindram03/meeteasy-gcm-server/dtos"
 	"github.com/goutils/structmapper"
-	"models"
-	"services"
+	"github.com/arvindram03/meeteasy-gcm-server/models"
+	"github.com/arvindram03/meeteasy-gcm-server/services"
 )
 
 func Register(writer http.ResponseWriter, req *http.Request) {
 	value, err := ioutil.ReadAll(req.Body)
 	if err != nil {
-		return httpResponse.BadRequest(writer)
+		httpResponse.BadRequest(writer)
+		return
 	}
 	var userDTO *dtos.UserDTO
 
 	err = json.Unmarshal(value, userDTO)
 	if err != nil {
-		return httpResponse.BadRequest(writer)
+		httpResponse.BadRequest(writer)
+		return
 	}
 
 	var user *models.User
@@ -28,8 +30,9 @@ func Register(writer http.ResponseWriter, req *http.Request) {
 
 	err = services.RegisterUser(user)
 	if err != nil {
-		return httpResponse.InternalServerError(writer)
+		httpResponse.InternalServerError(writer)
+		return
 	}
-
-	return httpResponse.Created(writer)
+	httpResponse.Created(writer)
+	return
 }

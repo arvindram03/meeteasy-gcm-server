@@ -1,8 +1,8 @@
 package services
 
 import (
-	"models"
-	"daos"
+	"github.com/arvindram03/meeteasy-gcm-server/models"
+	"github.com/arvindram03/meeteasy-gcm-server/daos"
 )
 
 func RegisterUser(user *models.User) error{

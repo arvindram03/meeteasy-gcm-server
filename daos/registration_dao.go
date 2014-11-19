@@ -1,6 +1,6 @@
 package daos
 
-import "models"
+import "github.com/arvindram03/meeteasy-gcm-server/models"
 
 func RegisterUser(user *models.User) error{
 	db := GetDBConn().Create(user)

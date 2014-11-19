@@ -2,30 +2,27 @@ package daos
 
 import (
 	"os"
-	"src/github.com/jinzhu/gorm"
-	"database/sql"
-	"models"
+	"github.com/jinzhu/gorm"
+	"github.com/arvindram03/meeteasy-gcm-server/models"
 	"sync"
-)
-
-const (
-	POSTGRESQL_URL = os.Getenv("HEROKU_POSTGRESQL_CHARCOAL_URL")
+	"log"
 )
 
 var once sync.Once
 var db gorm.DB
 
 func InitDB() {
-	db, err := gorm.Open("postgres", POSTGRESQL_URL)
+	postgreSQLURL := os.Getenv("HEROKU_POSTGRESQL_CHARCOAL_URL")
+	db, err := gorm.Open("postgres", postgreSQLURL)
 	if err != nil {
-		return nil
+		log.Fatal("Initialize DB: ", err)
 	}
 	dbConn := db.DB()
 	dbConn.SetMaxIdleConns(2)
 	dbConn.SetMaxOpenConns(10)
 
 	db.CreateTable(&models.User{})
-	db.AutoMigrate(&User{})
+	db.AutoMigrate(&models.User{})
 }
 
 func GetDBConn() *gorm.DB{

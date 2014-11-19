@@ -5,7 +5,7 @@ import (
 	"net/http"
 	"log"
 	"os"
-	"controllers"
+	"github.com/arvindram03/meeteasy-gcm-server/controllers"
 )
 
 func HelloServer(w http.ResponseWriter, req *http.Request) {
@@ -13,8 +13,8 @@ func HelloServer(w http.ResponseWriter, req *http.Request) {
 }
 
 func main() {
-	http.HandleFunc("/", HelloServer())
-	http.HandleFunc("/user", controllers.Register)
+	http.HandleFunc("/", HelloServer)
+	http.HandleFunc("/user",controllers.Register)
 	err := http.ListenAndServe(":"+os.Getenv("PORT"), nil)
 	if err != nil {
 		log.Fatal("ListenAndServe: ", err)
