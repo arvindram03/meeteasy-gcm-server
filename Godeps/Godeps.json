@@ -3,6 +3,11 @@
 	"GoVersion": "go1.3.3",
 	"Deps": [
 		{
+			"ImportPath": "code.google.com/p/go-uuid/uuid",
+			"Comment": "null-12",
+			"Rev": "7dda39b2e7d5e265014674c5af696ba4186679e9"
+		},
+		{
 			"ImportPath": "github.com/goutils/structmapper",
 			"Rev": "1d2c58ccdd59143a34515623b1b1a9cc0570e35f"
 		},
@@ -11,7 +16,7 @@
 			"Rev": "f43456fecf4b53e36544a9a2200fb473e42c3f67"
 		},
 		{
-			"ImportPath": "github.com/lib/pq/hstore",
+			"ImportPath": "github.com/lib/pq",
 			"Rev": "7175accbed18058468c07811f76440d6e8d7cf19"
 		}
 	]

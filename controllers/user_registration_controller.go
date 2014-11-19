@@ -8,31 +8,34 @@ import (
 	"github.com/arvindram03/meeteasy-gcm-server/dtos"
 	"github.com/goutils/structmapper"
 	"github.com/arvindram03/meeteasy-gcm-server/models"
-	"github.com/arvindram03/meeteasy-gcm-server/services"
+	"log"
 )
 
-func Register(writer http.ResponseWriter, req *http.Request) {
-	value, err := ioutil.ReadAll(req.Body)
+func RegisterUser(writer http.ResponseWriter, req *http.Request) {
+	byteValue, err := ioutil.ReadAll(req.Body)
 	if err != nil {
+		log.Println("[ParseError] ", err)
 		httpResponse.BadRequest(writer)
 		return
 	}
-	var userDTO *dtos.UserDTO
+	userDTO := &dtos.UserDTO{}
 
-	err = json.Unmarshal(value, userDTO)
+	err = json.Unmarshal(byteValue, userDTO)
 	if err != nil {
+		log.Println("[ParseError] ", err)
 		httpResponse.BadRequest(writer)
 		return
 	}
 
-	var user *models.User
-	structmapper.AutoMap(userDTO, user)
+	user := &models.User{}
+	structmapper.AutoMap(*userDTO, user)
 
-	err = services.RegisterUser(user)
+	err = user.Insert()
 	if err != nil {
 		httpResponse.InternalServerError(writer)
 		return
 	}
 	httpResponse.Created(writer)
-	return
 }
+
+
