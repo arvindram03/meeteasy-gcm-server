@@ -1,12 +1,12 @@
 package main
 
 import (
-	"io"
-	"net/http"
-	"log"
-	"os"
 	"github.com/arvindram03/meeteasy-gcm-server/controllers"
 	"github.com/bmizerany/pat"
+	"io"
+	"log"
+	"net/http"
+	"os"
 )
 
 func HelloServer(w http.ResponseWriter, req *http.Request) {
@@ -22,6 +22,7 @@ func main() {
 	m.Post("/meetup", http.HandlerFunc(controllers.CreateMeetup))
 	m.Put("/meetup/:meetupId", http.HandlerFunc(controllers.UpdateMeetup))
 
+	m.Post("/message", http.HandlerFunc(controllers.SendMessage))
 
 	http.Handle("/", m)
 	log.Println("Starting MeetEasy GCM Server...")

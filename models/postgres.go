@@ -1,10 +1,10 @@
 package models
 
 import (
-	"os"
 	"github.com/jinzhu/gorm"
 	_ "github.com/lib/pq"
 	"log"
+	"os"
 )
 
 var DB *gorm.DB
@@ -20,7 +20,7 @@ func InitDB() {
 	dbConn.SetMaxIdleConns(2)
 	dbConn.SetMaxOpenConns(10)
 	db.LogMode(true)
-	db.AutoMigrate(&User{}, &Meetup{}, &Location{})
+	db.AutoMigrate(&User{}, &Meetup{}, &Location{}, &Message{})
 }
 
 func GetDBConn() *gorm.DB {

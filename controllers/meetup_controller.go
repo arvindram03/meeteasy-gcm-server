@@ -1,14 +1,14 @@
 package controllers
 
 import (
-	httpResponse "github.com/arvindram03/meeteasy-gcm-server/http"
-	"encoding/json"
-	"io/ioutil"
-	"net/http"
-	"github.com/arvindram03/meeteasy-gcm-server/dtos"
-	"github.com/arvindram03/meeteasy-gcm-server/models"
 	"code.google.com/p/go-uuid/uuid"
+	"encoding/json"
+	"github.com/arvindram03/meeteasy-gcm-server/dtos"
+	httpResponse "github.com/arvindram03/meeteasy-gcm-server/http"
+	"github.com/arvindram03/meeteasy-gcm-server/models"
+	"io/ioutil"
 	"log"
+	"net/http"
 )
 
 func CreateMeetup(writer http.ResponseWriter, req *http.Request) {
@@ -36,13 +36,13 @@ func CreateMeetup(writer http.ResponseWriter, req *http.Request) {
 	meetup.Id = uuid.New()
 	err = meetup.Insert()
 	if err != nil {
+		log.Println("[InternalServerError] ", err)
 		httpResponse.InternalServerError(writer)
 		return
 	}
 
 	httpResponse.Created(writer)
 }
-
 
 func UpdateMeetup(writer http.ResponseWriter, req *http.Request) {
 	value, err := ioutil.ReadAll(req.Body)

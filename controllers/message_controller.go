@@ -1,40 +1,39 @@
 package controllers
 
 import (
-	"code.google.com/p/go-uuid/uuid"
 	"encoding/json"
 	"github.com/arvindram03/meeteasy-gcm-server/dtos"
 	httpResponse "github.com/arvindram03/meeteasy-gcm-server/http"
 	"github.com/arvindram03/meeteasy-gcm-server/models"
-	"github.com/goutils/structmapper"
 	"io/ioutil"
 	"log"
 	"net/http"
 )
 
-func RegisterUser(writer http.ResponseWriter, req *http.Request) {
-	byteValue, err := ioutil.ReadAll(req.Body)
+func SendMessage(writer http.ResponseWriter, req *http.Request) {
+	value, err := ioutil.ReadAll(req.Body)
 	if err != nil {
 		log.Println("[ParseError] ", err)
 		httpResponse.BadRequest(writer)
 		return
 	}
-	userDTO := &dtos.UserDTO{}
+	messageDTO := &dtos.MessageDTO{}
 
-	err = json.Unmarshal(byteValue, userDTO)
+	err = json.Unmarshal(value, messageDTO)
 	if err != nil {
 		log.Println("[ParseError] ", err)
 		httpResponse.BadRequest(writer)
 		return
 	}
 
-	user := &models.User{}
-	structmapper.AutoMap(*userDTO, user)
-	user.Id = uuid.New()
-	err = user.Insert()
+	message := &models.Message{}
+	message.FromMessageDTO(messageDTO)
+
+	err = message.Insert()
 	if err != nil {
-		httpResponse.InternalServerError(writer)
+		log.Println("[InternalServerError] ", err)
+		httpResponse.BadRequest(writer)
 		return
 	}
-	httpResponse.Created(writer)
+
 }
