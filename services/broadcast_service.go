@@ -11,10 +11,10 @@ import (
 const (
 	GCM_SEND_URL = "https://android.googleapis.com/gcm/send"
 	USERNAME     = "key"
-	PASSWORD     = os.Getenv("GCM_API_KEY")
 )
 
 func Broadcast(message dtos.MessageDTO, registrationIDs []string) {
+	password  := os.Getenv("GCM_API_KEY")
 	broadcastMessage := serviceDTOs.GCMMessageDTO{
 		Data:            message,
 		RegistrationIDs: registrationIDs,
@@ -22,7 +22,7 @@ func Broadcast(message dtos.MessageDTO, registrationIDs []string) {
 
 	httpWrapper := &http.HttpWrapper{}
 	request := httpWrapper.CreateRequest(GCM_SEND_URL, http.POST)
-	request.SetBasicAuth(USERNAME, PASSWORD)
+	request.SetBasicAuth(USERNAME, password)
 	request.SetJsonBody(broadcastMessage)
 	_, err := request.Send()
 	if err != nil {
