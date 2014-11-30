@@ -38,3 +38,31 @@ func RegisterUser(writer http.ResponseWriter, req *http.Request) {
 	}
 	httpResponse.Created(writer)
 }
+
+func GetRegisteredContacts(writer http.ResponseWriter, req *http.Request) {
+	byteValue, err := ioutil.ReadAll(req.Body)
+	if err != nil {
+		log.Println("[ParseError] ", err)
+		httpResponse.BadRequest(writer)
+		return
+	}
+	contactsDTO := &dtos.ContactsDTO{}
+
+	err = json.Unmarshal(byteValue, contactsDTO)
+	if err != nil {
+		log.Println("[ParseError] ", err)
+		httpResponse.BadRequest(writer)
+		return
+	}
+
+	contactsDTO.MobileNumbers = models.GetUsersByMobileNumbers(contactsDTO.MobileNumbers)
+
+	response, err := json.Marshal(contactsDTO)
+	if err != nil {
+		log.Println("[ParseError] ", err)
+		httpResponse.InternalServerError(writer)
+		return
+	}
+
+	httpResponse.StatusOKWithResponse(writer, response)
+}

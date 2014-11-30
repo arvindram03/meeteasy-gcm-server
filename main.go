@@ -18,6 +18,7 @@ func main() {
 	m.Get("/", http.HandlerFunc(HelloServer))
 
 	m.Post("/user", http.HandlerFunc(controllers.RegisterUser))
+	m.Post("/contacts/filter", http.HandlerFunc(controllers.GetRegisteredContacts))
 
 	m.Post("/meetup", http.HandlerFunc(controllers.CreateMeetup))
 	m.Put("/meetup/:meetupId", http.HandlerFunc(controllers.UpdateMeetup))

@@ -17,3 +17,8 @@ func Created(writer http.ResponseWriter) {
 func StatusOK(writer http.ResponseWriter) {
 	writer.WriteHeader(http.StatusOK)
 }
+
+func StatusOKWithResponse(writer http.ResponseWriter, response []byte) {
+	writer.WriteHeader(http.StatusOK)
+	writer.Write(response)
+}
